@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { LoginProvider } from '../../providers/login/login';
 import { HomePage } from '../home/home';
+import { WelcomePage } from '../welcome/welcome';
 /**
  * Generated class for the LoginPage page.
  *
@@ -22,7 +23,7 @@ export class LoginPage {
 	    email: ""
 	  };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loginProvider: LoginProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loginProvider: LoginProvider, private app:App) {
   }
 
   ionViewDidLoad() {
@@ -46,9 +47,14 @@ export class LoginPage {
         console.log('localStorage');
         console.log(localStorage.getItem("auth_token"));
         //rootPage: any = WelcomePage; //HomePage;
-        this.navCtrl.setRoot(HomePage);//push
+        //this.navCtrl.push(HomePage);
+        //this.navCtrl.setRoot(HomePage);//push
+        //this.navCtrl.setRoot(HomePage);
+        this.app.getRootNav().setRoot(HomePage);
       }, (err) => {
         console.log(err);
       })
   }
+
+  
 }
