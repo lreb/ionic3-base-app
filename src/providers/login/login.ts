@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http ,Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import * as GlobalServiceProvider from '../global-service/global-service';
 
 let apiUrl = "http://localhost:3000/v1/";
 /*
@@ -16,15 +17,17 @@ export class LoginProvider {
   constructor(public http: Http) {
     console.log('Hello LoginProvider Provider');
   }
-
+  createHeader(headers: Headers) {
+    headers.append('Content-Type', 'application/json');
+  }
   getApiUrl : string = "http://localhost:3000/v1/request_for_informations";
 
   signup(data) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
+      this.createHeader(headers);
 
-      this.http.post(apiUrl + "register", JSON.stringify(data), { headers }).subscribe(res => {
+      this.http.post(GlobalServiceProvider.appHost + "register", JSON.stringify(data), { headers: headers }).subscribe(res => {
         console.log(res);
         resolve(res.json());
       }), (err) => {
@@ -36,8 +39,8 @@ export class LoginProvider {
   login(data){
     //console.log(data);
     return new Promise((resolve, reject) => {
-          let headers = new Headers();
-          headers.append('Content-Type', 'application/json');
+      let headers = new Headers();
+      this.createHeader(headers);
           this.http.post(apiUrl + "authenticate", JSON.stringify(data), { headers }).subscribe(res => {
             // console.log(res.json().data.user_id);
             /*try {

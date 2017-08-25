@@ -44,8 +44,10 @@ export class LoginPage {
         console.log(this.responseData.auth_token);
         
         localStorage.setItem('auth_token', this.responseData.auth_token);
+        localStorage.setItem('signed', 'true');
         console.log('localStorage');
         console.log(localStorage.getItem("auth_token"));
+        console.log(localStorage.getItem("signed"));
         //rootPage: any = WelcomePage; //HomePage;
         //this.navCtrl.push(HomePage);
         //this.navCtrl.setRoot(HomePage);//push

@@ -14,11 +14,20 @@ import { WelcomePage } from '../pages/welcome/welcome';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = WelcomePage; //HomePage;
+  //normal
+  //rootPage: any = WelcomePage; 
+  //local
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private app:App) {
+
+    if (localStorage.getItem('signed') !== 'true') {
+      //rootPage: any = HomePage;
+      
+    }
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
