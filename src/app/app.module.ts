@@ -15,6 +15,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RfiProvider } from '../providers/rfi/rfi';
 import { LoginProvider } from '../providers/login/login';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { GlobalServiceProvider } from '../providers/global-service/global-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RfiProvider,
     LoginProvider,
-    AuthenticationProvider
+    AuthenticationProvider,
+    GlobalServiceProvider
   ]
 })
 export class AppModule {}

@@ -40,7 +40,11 @@ export class LoginPage {
       .then((result) => {
         this.responseData = result;
         console.log(this.responseData);
-        localStorage.setItem('userData', JSON.stringify(this.responseData));
+        console.log(this.responseData.auth_token);
+        
+        localStorage.setItem('auth_token', this.responseData.auth_token);
+        console.log('localStorage');
+        console.log(localStorage.getItem("auth_token"));
         //rootPage: any = WelcomePage; //HomePage;
         this.navCtrl.setRoot(HomePage);//push
       }, (err) => {

@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+
+//import { GlobalServiceProvider } from '../global-service/global-service';
+import * as GlobalServiceProvider from '../global-service/global-service'; //<==== this one
 /*
   Generated class for the RfiProvider provider.
 
@@ -18,7 +21,7 @@ export class RfiProvider {
     console.log('Hello RfiProvider Provider');
   }
   //getApiUrl : string = "https://jsonplaceholder.typicode.com/posts";
-  getApiUrl : string = "http://localhost:3000/v1/request_for_informations";
+  //getApiUrl: string =  GlobalServiceProvider.globalHost + 'request_for_informations';//"http://localhost:3000/v1/request_for_informations";
   /*getPosts() {
     return  this.http.get(this.getApiUrl);
             //.do((res : Response ) => console.log(res.json())
@@ -27,13 +30,15 @@ export class RfiProvider {
 	}*/
 
 	createAuthorizationHeader(headers: Headers) {
-	    headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1MDM2OTU3NzB9.P4TLAbvH8YPg9_cxTvViNWVzg1fHEC2J6Ve5j_G1m3A' ); 
+	    headers.append('Authorization', 'Bearer ' + localStorage.getItem("auth_token")); 
+	    headers.append('Content-Type', 'application/json');
 	  }
 
 	getCountries(): Observable<string[]> {
 	  let headers = new Headers();
       this.createAuthorizationHeader(headers);
-	  return this.http.get(this.getApiUrl, {headers:headers})
+      console.log(headers);
+	  return this.http.get(GlobalServiceProvider.appHost + 'request_for_informations', {headers:headers})
 	                  .map(this.extractData)
 	                  .catch(this.handleError);
 	}
